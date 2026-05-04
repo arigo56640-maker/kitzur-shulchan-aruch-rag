@@ -53,8 +53,8 @@ def build_search_tool(ingest: bool = False) -> DirectorySearchTool:
     common = dict(
         config=_build_config(),
         collection_name=COLLECTION_NAME,
-        limit=10,
-        similarity_threshold=0.0,
+        limit=6,
+        similarity_threshold=0.3,
     )
 
     if ingest:

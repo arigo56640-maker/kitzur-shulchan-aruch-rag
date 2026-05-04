@@ -71,7 +71,7 @@ The `DirectorySearchTool` config in this version is the new `RagToolConfig` shap
 }
 ```
 
-Retrieval breadth is controlled by `limit=` and `similarity_threshold=` on the tool itself (top-level kwargs to `DirectorySearchTool(...)`), not inside the config dict. Current values are `limit=10, similarity_threshold=0.0` — both deliberately wide. Hebrew embeddings via `text-embedding-3-small` are lexically sensitive (`התעוררות` and `השכמה` score very differently for the same chapter), so we want a generous candidate set and let the agent's backstory filter relevance, not the threshold.
+Retrieval breadth is controlled by `limit=` and `similarity_threshold=` on the tool itself (top-level kwargs to `DirectorySearchTool(...)`), not inside the config dict. Current values are `limit=6, similarity_threshold=0.3`. Hebrew embeddings via `text-embedding-3-small` are lexically sensitive (`התעוררות` and `השכמה` score very differently for the same chapter), so we keep `top_k=6` modestly wide and rely on the agent's backstory to retry with rephrased queries when the first candidate set is irrelevant. If you raise the threshold higher, expect more "no source found" answers for questions whose phrasing diverges from the source's terminology.
 
 `build_search_tool()` in `backend/src/kitzur_core/rag.py` has two modes:
 - `ingest=True` — passes `directory=str(SEIFIM_DIR)`, which triggers ingestion on construction (slow). Used by `build_index.py` exactly once.
