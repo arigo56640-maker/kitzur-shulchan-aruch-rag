@@ -1,0 +1,18 @@
+html, body {
+  direction: rtl;
+}
+
+.cl-message-content,
+.cl-input-textarea,
+textarea,
+input[type="text"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* keep code blocks LTR so the agent's siman/seif citation parens render normally */
+pre, code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
